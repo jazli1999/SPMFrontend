@@ -1,14 +1,14 @@
 <template>
     <div id="container">
         <el-container>
-            <el-aside id="nav" class="app-side app-side-left" width="20%">
-                <div class="app-side-logo">
-                    <img class="logo" src="@/assets/logo.png"/>
+            <el-aside id="nav" class="app-side app-side-left" width="200px">
+                <div id="logo" class="app-side-logo">
+                    <img id="logo-pic" src="@/assets/logo.png"/>
                 </div>
                 <div class="app-aside-content">
                     <el-menu default-active="1" router class="el-menu-vertical-demo" @open="handleOpen">
                         	<el-menu-item v-for="route in routes" v-show="route.name" :key="route.path" :index="route.path" >
-								<i class="el-icon-menu"></i>
+								<i class="el-icon-arrow-right"></i>
 								<span slot="title">{{ route.name }}</span>
 							</el-menu-item>
                     </el-menu>
@@ -19,7 +19,6 @@
                 <el-header class="app-header">
                     <h1>{{ label }}</h1>
                 </el-header>
-
                 <el-main class="app-body">
                     <template>
                         <router-view/>
@@ -59,8 +58,12 @@ export default {
 </script>
 
 <style scoped>
-img {
-	width: 80px;
-	align-content: center
+#logo {
+	height: 80px;
+	text-align: center;
+}
+#logo-pic {
+	width: 200px;
+	margin-top: 5%;
 }
 </style>

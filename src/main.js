@@ -10,6 +10,7 @@ import PeopleInfo from './components/PeopleInfo.vue'
 import HouseInfo from './components/HouseInfo.vue'
 import LifelineInfo from './components/LifelineInfo.vue'
 import SecondaryInfo from './components/SecondaryInfo.vue'
+import Upload from './components/Upload.vue'
 import Index from './components/Index'
 
 Vue.config.productionTip = false
@@ -24,7 +25,8 @@ const routes = [
   { path: '/peoplenfo', name: '人员伤亡及失踪', component: PeopleInfo, show: true },
   { path: '/houseinfo', name: '房屋破坏', component: HouseInfo, show: true },
   { path: '/lifelineinfo', name: '生命线', component: LifelineInfo, show: true },
-  { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo, show: true }
+  { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo, show: true },
+  { path: '/upload', name: '上传数据', component: Upload, show: true}
   ];
 
 const router = new Router({

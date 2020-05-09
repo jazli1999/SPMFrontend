@@ -31,13 +31,12 @@ export default {
         .then(function (response) {
             _this.updateData(response.data);
             _this.showData = true;
-            console.log(_this.data);
         })
         .catch(function (error) {
             console.log(error);
         })
         .then(function () {
-            console.log('finished');
+            console.log('QuakeInfo Finished');
         })
     },
     methods: {
@@ -45,8 +44,7 @@ export default {
             const strData = rawData.split('}');
             strData.pop();
             this.data = [];
-            for (let i in strData) {
-                console.log(strData[i] + '}');
+            for (let i in strData) {                
                 this.data[i] = JSON.parse(strData[i] + '}');   
             }
         }
@@ -55,6 +53,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>
