@@ -12,11 +12,11 @@ export default {
     data: function() {
         return {
             entries: [
-                {name: '地震灾情信息', url: '1', selected: true},
-                {name: '人员伤亡及失踪', url: '2', selected: false},
-                {name: '房屋破坏', url: '3', selected: false},
-                {name: '生命线', url: '4', selected: false},
-                {name: '次生灾害', url: '5', selected: false}
+                {name: '地震灾情信息', url: '/test/getAllHospitals.php', selected: true},
+                {name: '人员伤亡及失踪', url: 'https://www.baidu.com', selected: false},
+                {name: '房屋破坏', url: 'https://www.bing.com/', selected: false},
+                {name: '生命线', url: 'https://www.bing.com/', selected: false},
+                {name: '次生灾害', url: 'https://www.baidu.com', selected: false}
             ],
         }
     },
@@ -28,7 +28,7 @@ export default {
                 }
             }
             entry.selected = true;
-            this.$bus.emit('select', entry.url);
+            this.$bus.emit('select', entry);
         },
     }
 }

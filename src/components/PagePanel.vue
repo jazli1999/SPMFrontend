@@ -8,6 +8,7 @@
 import Index from './Index.vue'
 import InfoBlock from './InfoBlock.vue'
 import Vue from 'vue'
+import QuakeInfo from './QuakeInfo'
 
 export default {
     name: 'PagePanel',
@@ -16,16 +17,14 @@ export default {
     },
     data: function() {
         return {
-            slogan: 'Nothing selected'
         }
     },
     mounted: function() {
-        this.$bus.on('select', (msg) => {
+        this.$bus.on('select', (entry) => {
             const panel = document.getElementById('panel');
-            this.slogan = msg;
-            const infoConstructor = Vue.extend(InfoBlock);
+            const infoConstructor = Vue.extend(QuakeInfo);
             const info = new infoConstructor();
-            info.$set(info, 'slogan', msg);
+            info.$set(info, 'url', entry.url);
             var infoElement = info.$mount();
             panel.removeChild(panel.childNodes.item(0));
             panel.appendChild(infoElement.$el);
