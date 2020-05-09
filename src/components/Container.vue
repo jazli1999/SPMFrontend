@@ -1,7 +1,7 @@
 <template>
     <div id="container">
         <el-container>
-            <el-aside class="app-side app-side-left">
+            <el-aside id="nav" class="app-side app-side-left" width="20%">
                 <div class="app-side-logo">
                     <img class="logo" src="@/assets/logo.png"/>
                 </div>
@@ -35,7 +35,7 @@ export default {
   name: 'Container',
   data () {
     return {
-      label: 'MSHD'
+      label: '多源异构灾情信息平台'
     }
   },
   computed: {
@@ -59,7 +59,8 @@ export default {
 </script>
 
 <style scoped>
-.logo {
-    width: 2rem;
+img {
+	width: 80px;
+	align-content: center
 }
 </style>

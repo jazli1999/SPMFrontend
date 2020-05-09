@@ -1,28 +1,15 @@
 <template>
     <div id="quakeinfo">
-        <h1>地震灾情信息</h1>
-        <table v-show="showData">
-            <thead>
-                <th>地点</th>
-                <th>时间</th>
-                <th>编号</th>
-                <th>类型</th>
-                <th>破坏等级</th>
-                <th>上报单位</th>
-                <th>备注</th>
-            </thead>
-            <tbody v-for="item in data" :key="item.id">
-                <tr>
-                    <td>{{ item.location }}</td>
-                    <td>{{ item.date }}</td>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.type }}</td>
-                    <td>{{ item.grade }}</td>
-                    <td>{{ item.reportingunit }}</td>
-                    <td>{{ item.note }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <h4>地震灾情信息</h4>
+        <el-table :data="data" v-show="showData">
+            <el-table-column prop="id" label="编号" width="100px"/>
+            <el-table-column prop="date" label="日期" width="100px"/>
+            <el-table-column prop="location" label="地点" width="150px" />
+            <el-table-column prop="grade" label="震级" width="50px" />
+            <el-table-column prop="type" label="类型" width="100px"/>
+            <el-table-column prop="note" label="信息" width="300px"/>
+            <el-table-column prop="reportingunit" label="上报单位" />
+        </el-table>
     </div>
 </template>
 
@@ -67,3 +54,7 @@ export default {
 
 }
 </script>
+
+<style lang="scss" scoped>
+
+</style>
