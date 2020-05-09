@@ -7,12 +7,10 @@
                 </div>
                 <div class="app-aside-content">
                     <el-menu default-active="1" router class="el-menu-vertical-demo" @open="handleOpen">
-                        <el-menu-item index="1">首页</el-menu-item>
-                        <el-menu-item index="2">地震灾情信息</el-menu-item>
-                        <el-menu-item index="3">人员伤亡及失踪</el-menu-item>
-                        <el-menu-item index="4">房屋破坏</el-menu-item>
-                        <el-menu-item index="5">生命线</el-menu-item>
-                        <el-menu-item index="6">次生灾害</el-menu-item>
+                        	<el-menu-item v-for="route in routes" v-show="route.name" :key="route.path" :index="route.path" >
+								<i class="el-icon-menu"></i>
+								<span slot="title">{{ route.name }}</span>
+							</el-menu-item>
                     </el-menu>
                 </div>
             </el-aside>

@@ -10,7 +10,6 @@ import PeopleInfo from './components/PeopleInfo.vue'
 import HouseInfo from './components/HouseInfo.vue'
 import LifelineInfo from './components/LifelineInfo.vue'
 import SecondaryInfo from './components/SecondaryInfo.vue'
-import Container from './components/Container.vue'
 import Index from './components/Index'
 
 Vue.config.productionTip = false
@@ -19,37 +18,14 @@ Vue.use(Router)
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 })
 
 const routes = [
-  {
-    path: '/',
-    name: 'Index',
-    component: Index,
-    children: [
-      {
-        path: '/QuakeInfo',
-        name: 'QuakeInfo',
-        component: QuakeInfo
-      },
-      {
-        path: '/PeopleInfo',
-        name: 'PeopleInfo',
-        component: PeopleInfo
-      },
-      {
-        path: '/HouseInfo',
-        name: 'HouseInfo',
-        component: HouseInfo
-      },
-      {
-        path: '/LifelineInfo',
-        name: 'LifelineInfo',
-        component: LifelineInfo
-      },
-      {
-        path: '/SecondaryInfo',
-        name: 'SecondaryInfo',
-        component: SecondaryInfo
-      }]
-  }];
+  { path: '/', redirect: '/index', show: false},
+  { path: '/index', name: '首页', component: Index, show: true },
+  { path: '/quicinfo', name: '地震灾情信息', component: QuakeInfo, show: true },
+  { path: '/peoplenfo', name: '人员伤亡及失踪', component: PeopleInfo, show: true },
+  { path: '/houseinfo', name: '房屋破坏', component: HouseInfo, show: true },
+  { path: '/lifelineinfo', name: '生命线', component: LifelineInfo, show: true },
+  { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo, show: true }
+  ];
 
 const router = new Router({
     mode: 'history',
