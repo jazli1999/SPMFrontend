@@ -1,16 +1,16 @@
 <template>
     <div id="upload" style="text-align: center">
-        <el-card class="box-card" style="border-radius: 12px; margin: 0 20px; padding: 8px"> 
+        <el-card class="box-card" style="border-radius: 12px; margin: 0 20px; padding: 8px; min-width: 700px"> 
             <div slot="header" class="clearfix">
                 <el-row>
                     <el-divider direction="vertical"></el-divider>
-                    <div style="display: inline-block; width: 40px; text-align: center"> # </div>
+                    <div style="display: inline-block; width: 50px; text-align: center"> # </div>
                     <el-divider direction="vertical"></el-divider>
                     <div style="display: inline-block; width: 260px; text-align: center"> 文件 </div>
                     <el-divider direction="vertical"></el-divider>
                     <div style="display: inline-block; width: 190px; text-align: center"> 编码 </div>
                     <el-divider direction="vertical"></el-divider>
-                    <div style="display: inline-block; width: 80px; text-align: center"> 删除 </div>
+                    <div style="display: inline-block; width: 90px; text-align: center"> 删除 </div>
                     <el-divider direction="vertical"></el-divider>
                 </el-row>
             </div>

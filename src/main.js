@@ -24,14 +24,13 @@ Vue.use(ElementUI, { size: 'small', zIndex: 3000 })
 
 const routes = [
   { path: '/', redirect: '/index', show: false},
-  { path: '/index', name: '首页', component: Index, show: true, icon: 'el-icon-s-home' },
-  { path: '/quicinfo', name: '地震灾情信息', component: QuakeInfo, show: true, icon: 'el-icon-s-help' },
+  { path: '/index', name: '首页', component: Index, show: false, icon: 'el-icon-s-home' },
+  { path: '/quicinfo', name: '地震灾情', component: QuakeInfo, show: true, icon: 'el-icon-s-help' },
   { path: '/peoplenfo', name: '人员伤亡及失踪', component: PeopleInfo, show: true, icon: 'el-icon-user-solid' },
   { path: '/houseinfo', name: '房屋破坏', component: HouseInfo, show: true, icon: 'el-icon-s-shop' },
   { path: '/lifelineinfo', name: '生命线', component: LifelineInfo, show: true, icon: 'el-icon-s-promotion' },
   { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo, show: true, icon: 'el-icon-s-marketing' },
-  { path: '/upload', name: '上传数据', component: Upload, show: true, icon: 'el-icon-upload' }
-  ];
+  { path: '/upload', name: '上传数据', component: Upload, show: false, icon: 'el-icon-upload' }];
 
 const router = new Router({
     mode: 'history',

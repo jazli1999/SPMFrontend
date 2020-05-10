@@ -2,7 +2,7 @@
     <div id="fileitem">
         <el-row>
             <el-divider direction="vertical"></el-divider>
-            <label style="display: inline-block; width:40px; line-height: 35px; text-align: center"> {{ index+1 }} </label>
+            <label style="display: inline-block; width:50px; line-height: 35px; text-align: center;"> {{ index+1 }} </label>
             <el-divider direction="vertical"></el-divider>
             <el-form :inline="true" class="demo-form-inline" style="display:inline">
                 <el-form-item style="width: 250px; text-align: center">
@@ -15,7 +15,7 @@
                     <el-input v-model.number="code" style="width: 100px" placeholder="e.g. 336"></el-input>
                 </el-form-item>
                 <el-divider direction="vertical"></el-divider>
-                <el-form-item style="width: 70px; text-align: center">
+                <el-form-item style="width: 80px; text-align: center">
                     <el-button type="danger" :disabled="disable" icon="el-icon-delete" circle @click="deleteItem"></el-button>
                 </el-form-item>
             </el-form>

@@ -1,35 +1,25 @@
 <template>
     <div id="container">
-        <el-container>
-            <el-aside id="nav" class="app-side app-side-left">
-                <div class="app-aside-content">
-                    <el-menu default-active="1" router class="el-menu-vertical-demo" 
-								:collapse="isCollapse" @open="handleOpen">
-                        	<el-menu-item v-for="route in routes" v-show="route.name" :key="route.path" :index="route.path" >
-								<i :class="route.icon"></i>
-								<span style="margin-left:15px; margin-right: 15px" slot="title">{{ route.name }}</span>
-							</el-menu-item>
-                    </el-menu>
-                </div>
-            </el-aside>
+		<div>
+			<el-menu :default-active="routes[1].path" router mode="horizontal"  @open="handleOpen">
+				<el-menu-item :index="routes[1].path" >{{ routes[1].name }}</el-menu-item>
+				<el-submenu index="2">
+					<template slot="title">灾情信息</template>
+  					<el-menu-item v-for="route in infoRoutes" :key="route.path" :index="route.path" >
+						  {{ route.name }}
+  					</el-menu-item>
+				</el-submenu>
+				<el-menu-item :index="routes[7].path" >{{ routes[7].name }}</el-menu-item>
+			</el-menu>
+		</div>
 
-            <el-container>
-                <el-header class="app-header">
-					<div style="display: inline; width: 50px">
-						<el-button :icon="isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'" circle 
-									style="display: inline; font-size: 14pt; border: none;" @click="toggle" />
-					</div>
-					<div style="display: inline; text-align:center">
-						<h1>{{ label }}</h1>
-					</div>
-                </el-header>
-                <el-main class="app-body">
-                    <div style="text-align:center">
-                        <router-view/>
-                    </div>
-                </el-main>
-            </el-container>
-        </el-container>
+		<el-container>
+			<el-main class="app-body">
+				<div style="text-align:center">
+					<router-view/>
+				</div>
+			</el-main>
+		</el-container>
     </div>
 </template>
 
@@ -39,14 +29,18 @@ export default {
   data () {
     return {
 	  label: '多源异构灾情信息平台',
-	  isCollapse: true
     }
   },
   computed: {
     // 获取route路由
-    routes () {
-      return this.$router.options.routes
-    } 
+    infoRoutes () {
+      return this.$router.options.routes.filter((item) => {
+		  return item.show;
+	  });
+	},
+	routes () {
+		return this.$router.options.routes;
+	}
   },
   methods: {
     handleOpen (key, keyPath) {
