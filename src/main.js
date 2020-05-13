@@ -10,12 +10,9 @@ import PeopleInfo from './components/PeopleInfo.vue'
 import HouseInfo from './components/HouseInfo.vue'
 import LifelineInfo from './components/LifelineInfo.vue'
 import SecondaryInfo from './components/SecondaryInfo.vue'
+import DisasterPrediction from './components/DisasterPrediction.vue'
 import Upload from './components/Upload.vue'
 import Index from './components/Index'
-
-import  VueResource  from 'vue-resource'
-
-Vue.use(VueResource) 
 
 Vue.config.productionTip = false
 Vue.use(Bus)
@@ -24,12 +21,13 @@ Vue.use(ElementUI, { size: 'small', zIndex: 3000 })
 
 const routes = [
   { path: '/', redirect: '/index', show: false},
-  { path: '/index', name: '首页', component: Index, show: false, icon: 'el-icon-s-home' },
-  { path: '/quicinfo', name: '地震灾情', component: QuakeInfo, show: true, icon: 'el-icon-s-help' },
-  { path: '/peoplenfo', name: '人员伤亡及失踪', component: PeopleInfo, show: true, icon: 'el-icon-user-solid' },
-  { path: '/houseinfo', name: '房屋破坏', component: HouseInfo, show: true, icon: 'el-icon-s-shop' },
-  { path: '/lifelineinfo', name: '生命线', component: LifelineInfo, show: true, icon: 'el-icon-s-promotion' },
-  { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo, show: true, icon: 'el-icon-s-marketing' },
+  { path: '/index', name: '首页', component: Index, show: false },
+  { path: '/quicinfo', name: '地震灾情', component: QuakeInfo, show: true },
+  { path: '/peoplenfo', name: '人员伤亡及失踪', component: PeopleInfo, show: true },
+  { path: '/houseinfo', name: '房屋破坏', component: HouseInfo, show: true },
+  { path: '/lifelineinfo', name: '生命线', component: LifelineInfo, show: true },
+  { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo, show: true}, 
+  { path: '/disasterprediction', name: '灾情预测', component: DisasterPrediction, show: true}, 
   { path: '/upload', name: '上传数据', component: Upload, show: false, icon: 'el-icon-upload' }];
 
 const router = new Router({

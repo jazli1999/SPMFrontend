@@ -9,7 +9,7 @@
 						  {{ route.name }}
   					</el-menu-item>
 				</el-submenu>
-				<el-menu-item :index="routes[7].path" >{{ routes[7].name }}</el-menu-item>
+				<el-menu-item :index="routes[8].path" >{{ routes[8].name }}</el-menu-item>
 			</el-menu>
 		</div>
 
