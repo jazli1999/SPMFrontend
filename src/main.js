@@ -14,6 +14,15 @@ import DisasterPrediction from './components/DisasterPrediction.vue'
 import Upload from './components/Upload.vue'
 import Index from './components/Index'
 
+import 'xe-utils'
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/index.css'
+
+Vue.use(VXETable)
+
+// 给 vue 实例挂载全局窗口对象
+Vue.prototype.$XModal = VXETable.modal
+
 Vue.config.productionTip = false
 Vue.use(Bus)
 Vue.use(Router)
