@@ -4,6 +4,7 @@ import Bus from './assets/vue-bus'
 import Router from 'vue-router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import crud from './assets/crud'
 
 import QuakeInfo from './components/QuakeInfo.vue'
 import PeopleInfo from './components/PeopleInfo.vue'
@@ -22,6 +23,7 @@ Vue.use(VXETable)
 
 // 给 vue 实例挂载全局窗口对象
 Vue.prototype.$XModal = VXETable.modal
+Vue.prototype.crud = crud
 
 Vue.config.productionTip = false
 Vue.use(Bus)

@@ -50,7 +50,7 @@ export default {
             },
             formItems: [
                 {title: '人员伤亡失踪信息', span: 24, titleAlign: 'left', titleWidth: 200, titlePrefix: {icon: 'el-icon-user-solid'}},
-                {field: 'id', title: '编码', span: 12, itemRender: {name: '$input', props: {placeholder: '请输入编码', disabled: true}}},
+                {field: 'id', title: '编码', span: 12, itemRender: {name: '$input', props: {placeholder: '请输入编码', disabled: (this.selectRow ? true : false)}}},
                 {field: 'date', title: '上报时间', span: 12, itemRender: {name: '$input', props: {placeholder: '请输入上报时间'}}},
                 {field: 'location', title: '死亡地点', span: 12, itemRender: {name: '$input', props: {placeholder: '请输入死亡地点'}}},
                 {field: 'number', title: '死亡人数', span: 12, itemRender: {name: '$input', props: {placeholder: '请输入死亡人数'}}},
@@ -64,22 +64,7 @@ export default {
     mounted: function (rawData) {
         this.refreshData();
     },
-    methods: {
-        updateData: function (rawData) {
-            if (typeof rawData === 'object') {
-                this.data = [rawData];
-                this.data[0].index = 0;
-            }
-            else {
-                const strData = rawData.split('}');
-                strData.pop();
-                this.data = [];
-                for (let i in strData) {                
-                    this.data[i] = JSON.parse(strData[i] + '}');  
-                    this.data[i].index = i; 
-                }
-            }
-        },
+    methods: {    
         insertEvent () {
             this.formData = {
                 id: '',
@@ -92,20 +77,11 @@ export default {
             this.showEdit = true;
         },
         refreshData: function () {
-            var _this = this;
-            const axios = require('axios');
-
-            axios.get("/api/disaster/DeathStatistics")
-            .then(function (response) {
-                _this.updateData(response.data);
-                _this.showData = true;
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-            .then(function () {
-                console.log('PeopleInfo Finished');
-            });
+            this.crud.getRequest('/api/disaster/DeathStatistics', this);
+        },
+        updateData: function(newData) {
+            this.data = newData;
+            this.showData = true;
         },
         edit: function(row) {
             this.formData = {
@@ -123,31 +99,12 @@ export default {
                 if (type === 'confirm') {
                     var _this = this;
                     this.data.splice(row.index, 1);
-                    const axios = require('axios');
                     const formdata = new FormData();
 
                     const sql = 'DELETE FROM disaster.deathStatistics WHERE id=' + row.id + ';';
                     formdata.append('commdisasterupdate', sql);
 
-                    axios({
-                        method: 'post',
-                        url: '/api/disaster/Update',
-                        headers: {'content-type': 'multipart/form-data'},
-                        data: formdata})
-                    .then(function(response) {
-                        if (response.data === 'update already') {
-                           console.log(response);
-                           _this.$message({
-                               message: '已删除',
-                               type: 'success'
-                           });
-                        } else {
-                            _this.$message({
-                                message: '操作未完成，请重试',
-                                type: 'error'
-                            });
-                        }
-                    });
+                    this.crud.postRequest('/api/disaster/Update', formdata, this, 'update already');
                 }
             })
         },
@@ -156,9 +113,6 @@ export default {
             setTimeout(() => {
                 this.submitLoading = false;
                 this.showEdit = false;
-                this.$XModal.message({ message: '新增成功', status: 'success' });
-                var _this = this;
-                const axios = require('axios');
                 const formdata = new FormData();
                 let sql = '';
 
@@ -174,25 +128,7 @@ export default {
                 }
                 
                 formdata.append('commdisasterupdate', sql);
-                axios({
-                    method: 'post',
-                    url: '/api/disaster/Update',
-                    headers: {'content-type': 'multipart/form-data'},
-                    data: formdata})
-                .then(function(response) {
-                    if (response.data === 'update already') {
-                        _this.refreshData();
-                        _this.$message({
-                            message: '操作完成',
-                            type: 'success'
-                        });
-                    } else {
-                        _this.$message({
-                            message: '操作未完成，请重试',
-                            type: 'error'
-                        });
-                    }
-                });
+                this.crud.postRequest('/api/disaster/Update', formdata, this, 'update already');
             }, 500);
         },
         cellDBLClickEvent ({ row }) {
