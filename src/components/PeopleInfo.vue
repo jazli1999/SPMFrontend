@@ -3,21 +3,21 @@
         <el-card class="box-card" style="padding: 15px; border-radius: 15px">
             <div slot="header" class="clearfix" style="text-align: center">
                 <h3>人员伤亡及失踪</h3>
-                <el-button style="font-size:10pt" type="text" @click="refreshData">刷新数据</el-button>
+				<el-button style="font-size:10pt" type="text" @click="refreshData">刷新数据</el-button>
             </div>
-             <div style="align-content: center">
-                <vxe-toolbar>
-                    <template v-slot:buttons>
-                        <vxe-button icon="fa fa-plus" @click="insertEvent()">新增</vxe-button>
-                    </template>
-                </vxe-toolbar>
-                <vxe-table stripe :data="data" v-show="showData" @cell-dblclick="cellDBLClickEvent">      
+            <div style="align-content: center">
+				<vxe-toolbar v-show="this.admin">
+					<template v-slot:buttons>
+						<vxe-button @click="insertEvent()">新增</vxe-button>
+					</template>
+				</vxe-toolbar>
+				<vxe-table stripe :data="data" @cell-dblclick="cellDBLClickEvent">      
                     <vxe-table-column align="center" field="id" title="编码"></vxe-table-column>
                     <vxe-table-column align="center" field="date" title="上报时间"></vxe-table-column>
                     <vxe-table-column align="center" field="location" title="死亡时间"></vxe-table-column>
                     <vxe-table-column align="center" field="number" title="死亡人数"></vxe-table-column>
                     <vxe-table-column align="center" field="reportingunit" title="上报单位"></vxe-table-column>
-                    <vxe-table-column align="center" title="操作" show-overflow>
+                    <vxe-table-column v-show="this.admin" align="center" title="操作" show-overflow>
                         <template v-slot="{ row }">
                             <el-button type="primary" icon="el-icon-edit" circle @click="edit(row)"></el-button>
                             <el-button type="danger" icon="el-icon-delete" circle @click="remove(row)"></el-button>
@@ -58,7 +58,12 @@ export default {
                 { align: 'center', span: 24, titleAlign: 'left', itemRender: { name: '$buttons', children: [{ props: { type: 'submit', content: '提交', status: 'primary' } }, { props: { type: 'reset', content: '重置' } }] } }
             ],
             showEdit: false,
-            selectRow: null
+            selectRow: null,
+        }
+    },
+    computed: {
+        admin: function() {
+            return Boolean(Number(sessionStorage.getItem('admin')));
         }
     },
     mounted: function (rawData) {
@@ -98,7 +103,6 @@ export default {
             this.$XModal.confirm('您确定要删除该数据?').then(type => {
                 if (type === 'confirm') {
                     var _this = this;
-                    this.data.splice(row.index, 1);
                     const formdata = new FormData();
 
                     const sql = 'DELETE FROM disaster.deathStatistics WHERE id=' + row.id + ';';

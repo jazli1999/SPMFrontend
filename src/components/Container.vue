@@ -10,6 +10,7 @@
   					</el-menu-item>
 				</el-submenu>
 				<el-menu-item :index="routes[8].path" >{{ routes[8].name }}</el-menu-item>
+				<login />
 			</el-menu>
 		</div>
 
@@ -24,38 +25,53 @@
 </template>
 
 <script>
+import Login from './Login'
+
 export default {
-  name: 'Container',
-  data () {
-    return {
-	  label: '多源异构灾情信息平台',
-    }
-  },
-  computed: {
-    // 获取route路由
-    infoRoutes () {
-      return this.$router.options.routes.filter((item) => {
-		  return item.show;
-	  });
+	name: 'Container',
+	components: {
+		'login': Login
 	},
-	routes () {
-		return this.$router.options.routes;
-	}
-  },
-  methods: {
-    handleOpen (key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose (key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleSelect (key, keyPath) {
-      console.log(key, keyPath);
+	data () {
+		return {
+		label: '多源异构灾情信息平台',
+		}
 	},
-	toggle () {
-		this.isCollapse = !this.isCollapse;
-	}
-  },
+	computed: {
+		// 获取route路由
+		infoRoutes () {
+		return this.$router.options.routes.filter((item) => {
+			return item.show;
+		});
+		},
+		routes () {
+			return this.$router.options.routes;
+		}
+	},
+	created: function() {
+		if(sessionStorage.getItem("admin") === null) {
+			sessionStorage.setItem("admin", 0);
+		}
+	},
+	mounted: function () {
+		localStorage.setItem('admin', false);
+	},
+	methods: {
+		handleOpen (key, keyPath) {
+		console.log(key, keyPath);
+		},
+		handleClose (key, keyPath) {
+		console.log(key, keyPath);
+		},
+		handleSelect (key, keyPath) {
+		console.log(key, keyPath);
+		},
+		login () {
+			console.log(this.admin);
+			this.crud.admin = !this.crud.admin;
+			console.log(this.admin);
+		}
+	},
 }
 </script>
 
