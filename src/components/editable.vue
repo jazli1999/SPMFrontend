@@ -10,9 +10,9 @@
 				<vxe-table-column :key="index" align="center" :field="column.field" :title="column.title"/>
 			</template>
 			<vxe-table-column v-if="this.admin" align="center" title="操作" show-overflow>
-				<template v-slot="{ row }">
-					<el-button type="primary" icon="el-icon-edit" circle></el-button>
-					<el-button type="danger" icon="el-icon-delete" circle></el-button>
+				<template slot-scope="row">
+					<el-button type="primary" icon="el-icon-edit" circle @click="edit(row.row)"></el-button>
+					<el-button type="danger" icon="el-icon-delete" circle @click="remove(row.$rowIndex)"></el-button>
 				</template>
 			</vxe-table-column>
 		</vxe-table>
@@ -28,7 +28,6 @@ export default {
 	props: {
 		'tableData': Array,
 		'columns': Array,
-		'url': String,
 		'formItems': Array,
 		'formData': Object
 	},
@@ -53,15 +52,22 @@ export default {
 	mounted: function () {
 	},
 	methods: {
-		getFormData: function() {
+		initFormData: function() {
 			const newData = new Object();
 			for (const i in this.mFormData) {
 				newData[i] = '';
 			}
 			this.mFormData = newData;
 		},
+		getFormData: function(row) {
+			const newData = new Object();
+			for (const i in row) {
+				newData[i] = row[i];
+			}
+			this.mFormData = newData;
+		},
 		insertRow: function () {
-			this.getFormData();
+			this.initFormData();
 			this.selectRow = null;
 			this.showEdit = true;
 		},
@@ -70,9 +76,24 @@ export default {
 			this.submitLoading = false;
 			this.showEdit = false;
 			
-			this.$emit('submit', this.mFormData)
+			this.$emit('submit', [this.mFormData, this.selectRow]);
 			// this.mData.push(this.mFormData);
+			// if (this.selectRow) {
+			// 	Object.assign(this.selectRow, this.mFormData);
+			// }
 			
+		},
+		edit: function (row) {
+			this.getFormData(row);
+			this.selectRow = row;
+			this.showEdit = true;
+		},
+		remove: function (index) {
+			this.$XModal.confirm('您确定要删除该数据?').then(type => {
+                if (type === 'confirm') {
+					this.$emit('remove', index);
+                }
+            })
 		},
 		cellDBLClickEvent ({ row }) {
 			this.editEvent(row);

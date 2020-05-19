@@ -1,7 +1,8 @@
 <template>
     <div id="lifelineinfo">
         <h1>生命线</h1>
-		<editable :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" @submit="submitEvent($event)" />
+		<editable :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" 
+					@submit="submitEvent($event)" @remove="remove($event)"/>
     </div>
 </template>
 
@@ -35,9 +36,17 @@ export default {
 		}
 	},
 	methods: {
-		submitEvent: function (row) {			
-			this.tableData.push(row);
+		submitEvent: function (row) {
+			if (row[1]) {
+				// this.tableData[0].a = 2;
+			}
+			else {
+				this.tableData.push(row[0]);
+			}
 		},
+		remove: function (index) {
+			this.tableData.splice(index, 1);
+		}
 	}
 }
 </script>
