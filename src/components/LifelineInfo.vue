@@ -1,7 +1,7 @@
 <template>
     <div id="lifelineinfo">
         <h1>生命线</h1>
-		<editable :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData"></editable>
+		<editable :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" @submit="submitEvent($event)" />
     </div>
 </template>
 
@@ -33,6 +33,11 @@ export default {
 					children: [{ props: { type: 'submit', content: '提交', status: 'primary' } }, { props: { type: 'reset', content: '重置' } }] } }
 			]
 		}
+	},
+	methods: {
+		submitEvent: function (row) {			
+			this.tableData.push(row);
+		},
 	}
 }
 </script>

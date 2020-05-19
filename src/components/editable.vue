@@ -62,7 +62,6 @@ export default {
 		},
 		insertRow: function () {
 			this.getFormData();
-			console.log(this.mFormData);
 			this.selectRow = null;
 			this.showEdit = true;
 		},
@@ -71,7 +70,8 @@ export default {
 			this.submitLoading = false;
 			this.showEdit = false;
 			
-			this.mData.push(this.mFormData);
+			this.$emit('submit', this.mFormData)
+			// this.mData.push(this.mFormData);
 			
 		},
 		cellDBLClickEvent ({ row }) {
