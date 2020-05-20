@@ -1,9 +1,13 @@
 <template>
     <div id="lifelineinfo">
-        <h1>生命线</h1>
-		<editable :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" 
-					@submit="submitEvent($event)" @remove="remove($event)"/>
-    </div>
+		<el-card class="box-card" style="padding: 15px; border-radius: 15px">
+		    <div slot="header" class="clearfix" style="text-align: center">
+		        <h3>生命线</h3>
+			</div>
+			<editable :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" 
+						@submit="submitEvent($event)" @remove="remove($event)"/>
+		</el-card>
+	</div>
 </template>
 
 <script>

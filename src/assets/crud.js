@@ -14,6 +14,7 @@ export default {
                     type: 'success'
                 });
             } else {
+				console.log(response.data);
                 _this.$message({
                     message: '操作未完成，请重试',
                     type: 'error'
@@ -46,11 +47,42 @@ export default {
         else {
             const strData = rawData.split('}');
             strData.pop();
-            for (let i in strData) {                
-                data[i] = JSON.parse(strData[i] + '}');  
+            for (let i in strData) {
+				const str = strData[i] + '}';
+                data[i] = JSON.parse(str);  
                 data[i].index = i;
             }
         }
         return data;
-    }
+    },
+	generateSql: function(oper, row, table) {
+		let sql;
+		if (oper === 'edit') {
+			sql = "UPDATE " + table + " SET";
+			for (const index in row) {
+				if (index !== "id" && index !== "_XID" && index !== "index") {
+					const item = " " + index + "='" + row[index] + "',";
+					sql += item;
+				}
+			}
+			sql = sql.substr(0, sql.length-1);
+			sql += " WHERE id='" + row.id + "';";
+		}
+		else if (oper === 'insert') {
+			sql = "INSERT INTO " + table + " ";
+			let indexes = "(";
+			let values = "(";
+			for (const index in row) {
+				indexes += index + ", ";
+				values += "'" + row[index] + "', ";
+			}
+			indexes = indexes.substr(0, indexes.length-2) + ")";
+			values = values.substr(0, values.length-2) + ")";
+			sql = sql + indexes + " VALUES " + values + ";";
+		}
+		else {
+			sql = "DELETE FROM " + table + " WHERE id = '" + row.id + "';";
+		}
+		return sql;
+	}
 }

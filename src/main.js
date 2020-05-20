@@ -35,7 +35,7 @@ Vue.use(editable)
 const routes = [
   { path: '/', redirect: '/index', show: false},
   { path: '/index', name: '首页', component: Index, show: false },
-  { path: '/quicinfo', name: '地震灾情', component: QuakeInfo, show: true },
+  { path: '/quakeinfo', name: '地震灾情', component: QuakeInfo, show: true },
   { path: '/peoplenfo', name: '人员伤亡及失踪', component: PeopleInfo, show: true },
   { path: '/houseinfo', name: '房屋破坏', component: HouseInfo, show: true },
   { path: '/lifelineinfo', name: '生命线', component: LifelineInfo, show: true },
