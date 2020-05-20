@@ -1,8 +1,8 @@
 <template>
-    <div id="lifelineinfo">
+    <div id="comminfo">
 		<el-card class="box-card" style="padding: 15px; border-radius: 15px">
 		    <div slot="header" class="clearfix" style="text-align: center">
-		        <h3>灾情预测</h3>
+		        <h4>通信灾情</h4>
 				<el-button style="font-size:10pt" type="text" @click="refreshData">刷新数据</el-button>
 			</div>
 			<editable v-show="showData" :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" 
@@ -14,14 +14,14 @@
 <script>
 import editable from './editable.vue'
 export default {
-    name: 'DisasterPrediction',
+    name: 'CommInfo',
 	components: {
 		editable
 	},
 	data: function() {
 		return {
-			url: '/api/disaster/DisasterPrediction',
-			db: 'disaster.disasterPrediction',
+			url: '/api/disaster/CommonDisaster',
+			db: 'disaster.commDisaster',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,
@@ -31,12 +31,7 @@ export default {
 				{field: 'id', title: '编码', expand: false},
 				{field: 'date', title: '时间', expand: false},
 				{field: 'location', title: '地点',  expand: false},
-				{field: 'longitude', title: '纬度', expand: false},
-				{field: 'latitude', title: '经度', expand: false},
-				{field: 'depth', title: '震源深度',  expand: false},
-				{field: 'magnitude', title: '震级',  expand: false},
 				{field: 'type', title: '类型', expand: false},
-				{field: 'intensity', title: '强度', expand: false},
 				{field: 'reportingunit', title: '上报单位', expand: false},
 			],
 			tableData: [],
@@ -46,11 +41,6 @@ export default {
 				location: '',
 				type: '',
 				reportingunit: '',
-				longitude: '',
-				latitude: '',
-				magnitude: '',
-				depth: '',
-				intensity: '',
 				note: '',
 				picture: ''
 			},
@@ -59,11 +49,6 @@ export default {
 				{field: 'date', title: '时间', span: 12, itemRender: {name: '$input'}},
 				{field: 'location', title: '地点', span: 12, itemRender: {name: '$input'}},
 				{field: 'type', title: '类型', span: 12, itemRender: {name: '$input'}},
-				{field: 'longitude', title: '经度', span: 12, itemRender: {name: '$input'}},
-				{field: 'latitude', title: '纬度', span: 12, itemRender: {name: '$input'}},
-				{field: 'depth', title: '震源深度', span: 12, itemRender: {name: '$input'}},
-				{field: 'magnitude', title: '震级', span: 12, itemRender: {name: '$input'}},
-				{field: 'intensity', title: '强度', span: 12, itemRender: {name: '$input'}},
 				{field: 'reportingunit', title: '上报单位', span: 12, itemRender: {name: '$input'}},
 				{field: 'note', title: '详情', span: 12, itemRender: {name: '$input'}},
 				{field: 'picture', title: '图片', span: 12, itemRender: {name: '$input'}},

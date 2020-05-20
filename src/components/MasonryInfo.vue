@@ -2,7 +2,7 @@
     <div id="lifelineinfo">
 		<el-card class="box-card" style="padding: 15px; border-radius: 15px">
 		    <div slot="header" class="clearfix" style="text-align: center">
-		        <h3>灾情预测</h3>
+		        <h3>砖混房屋情况</h3>
 				<el-button style="font-size:10pt" type="text" @click="refreshData">刷新数据</el-button>
 			</div>
 			<editable v-show="showData" :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" 
@@ -14,29 +14,28 @@
 <script>
 import editable from './editable.vue'
 export default {
-    name: 'DisasterPrediction',
+    name: 'MasonryInfo',
 	components: {
 		editable
 	},
 	data: function() {
 		return {
-			url: '/api/disaster/DisasterPrediction',
-			db: 'disaster.disasterPrediction',
+			url: '/api/disaster/MasonryStructure',
+			db: 'disaster.masonryStructure',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,
 			showData: false,
 			columns: [
-				{expand: true, child: [{name:'note', title:'详情', image:false}, {name:'picture', image:true}]}, 
+				{expand: true, child: [{name:'note', title:'破坏情况描述', image:false}]}, 
 				{field: 'id', title: '编码', expand: false},
-				{field: 'date', title: '时间', expand: false},
+				{field: 'date', title: '上报时间', expand: false},
 				{field: 'location', title: '地点',  expand: false},
-				{field: 'longitude', title: '纬度', expand: false},
-				{field: 'latitude', title: '经度', expand: false},
-				{field: 'depth', title: '震源深度',  expand: false},
-				{field: 'magnitude', title: '震级',  expand: false},
-				{field: 'type', title: '类型', expand: false},
-				{field: 'intensity', title: '强度', expand: false},
+				{field: 'basicallyintactsquare', title: '基本完好面积', expand: false},
+				{field: 'slightdamagedsquare', title: '轻微破坏面积',  expand: false},
+				{field: 'moderatedamagedsquare', title: '中等破坏面积',  expand: false},
+				{field: 'seriousdamagedsquare', title: '严重破坏面积',  expand: false},
+				{field: 'destroyedsquare', title: '毁坏面积',  expand: false},
 				{field: 'reportingunit', title: '上报单位', expand: false},
 			],
 			tableData: [],
@@ -44,29 +43,25 @@ export default {
 				id: '',
 				date: '',
 				location: '',
-				type: '',
+				basicallyintactsquare: '',
+				slightdamagedsquare: '',
+				moderatedamagedsquare: '',
+				seriousdamagedsquare: '',
+				destroyedsquare: '',
 				reportingunit: '',
-				longitude: '',
-				latitude: '',
-				magnitude: '',
-				depth: '',
-				intensity: '',
 				note: '',
-				picture: ''
 			},
 			formItems: [
 				{field: 'id', title: '编码', span: 12, itemRender: {name: '$input'}},
 				{field: 'date', title: '时间', span: 12, itemRender: {name: '$input'}},
 				{field: 'location', title: '地点', span: 12, itemRender: {name: '$input'}},
-				{field: 'type', title: '类型', span: 12, itemRender: {name: '$input'}},
-				{field: 'longitude', title: '经度', span: 12, itemRender: {name: '$input'}},
-				{field: 'latitude', title: '纬度', span: 12, itemRender: {name: '$input'}},
-				{field: 'depth', title: '震源深度', span: 12, itemRender: {name: '$input'}},
-				{field: 'magnitude', title: '震级', span: 12, itemRender: {name: '$input'}},
-				{field: 'intensity', title: '强度', span: 12, itemRender: {name: '$input'}},
+				{field: 'basicallyintactsquare', title: '基本完好面积', span: 12, itemRender: {name: '$input'}},
+				{field: 'slightdamagedsquare', title: '轻微破坏面积',  span: 12, itemRender: {name: '$input'}},
+				{field: 'moderatedamagedsquare', title: '中等破坏面积', span: 12, itemRender: {name: '$input'}},
+				{field: 'seriousdamagedsquare', title: '严重破坏面积', span: 12, itemRender: {name: '$input'}},
+				{field: 'destroyedsquare', title: '毁坏面积', span: 12, itemRender: {name: '$input'}},
 				{field: 'reportingunit', title: '上报单位', span: 12, itemRender: {name: '$input'}},
-				{field: 'note', title: '详情', span: 12, itemRender: {name: '$input'}},
-				{field: 'picture', title: '图片', span: 12, itemRender: {name: '$input'}},
+				{field: 'note', title: '破坏情况描述', span: 12, itemRender: {name: '$input'}},
 				{ align: 'center', span: 24, titleAlign: 'left', itemRender: { name: '$buttons', 
 					children: [{ props: { type: 'submit', content: '提交', status: 'primary' } }, { props: { type: 'reset', content: '重置' } }] } }
 			]

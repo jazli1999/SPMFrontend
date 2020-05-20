@@ -8,7 +8,7 @@
 		<vxe-table stripe :data="tableData" :columns="columns">
 			<template v-for="(column, index) in columns">	
 				<vxe-table-column v-if="!column.expand" :key="index" align="center" :field="column.field" :title="column.title"/>
-				<vxe-table-column v-else :key="index" type="expand" width="80px">
+				<vxe-table-column v-else :key="index" type="expand" width="25px">
 					<template v-slot:content="{row, rowIndex}" style="text-align: left;">
 						<el-row>
 							<template v-for="i in column.child">

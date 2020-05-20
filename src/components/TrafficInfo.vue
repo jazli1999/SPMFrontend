@@ -1,8 +1,9 @@
 <template>
-    <div id="lifelineinfo">
+    <div id="comminfo">
 		<el-card class="box-card" style="padding: 15px; border-radius: 15px">
 		    <div slot="header" class="clearfix" style="text-align: center">
-		        <h3>通信灾情</h3>
+		        <h4>交通灾情</h4>
+				<el-button style="font-size:10pt" type="text" @click="refreshData">刷新数据</el-button>
 			</div>
 			<editable v-show="showData" :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" 
 						@submit="submitEvent($event)" @remove="remove($event)"/>
@@ -13,13 +14,14 @@
 <script>
 import editable from './editable.vue'
 export default {
-    name: 'LifelineInfo',
+    name: 'TrafficInfo',
 	components: {
 		editable
 	},
 	data: function() {
 		return {
-			url: '/api/disaster/CommonDisaster',
+			url: '/api/disaster/TrafficDisaster',
+			db: 'disaster.trafficDisaster',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,
@@ -30,6 +32,7 @@ export default {
 				{field: 'date', title: '时间', expand: false},
 				{field: 'location', title: '地点',  expand: false},
 				{field: 'type', title: '类型', expand: false},
+				{field: 'grade', title: '破坏等级', expand: false},
 				{field: 'reportingunit', title: '上报单位', expand: false},
 			],
 			tableData: [],
@@ -38,6 +41,7 @@ export default {
 				date: '',
 				location: '',
 				type: '',
+				grade: '',
 				reportingunit: '',
 				note: '',
 				picture: ''
@@ -47,6 +51,7 @@ export default {
 				{field: 'date', title: '时间', span: 12, itemRender: {name: '$input'}},
 				{field: 'location', title: '地点', span: 12, itemRender: {name: '$input'}},
 				{field: 'type', title: '类型', span: 12, itemRender: {name: '$input'}},
+				{field: 'grade', title: '破坏等级', span: 12, itemRender: {name: '$input'}},
 				{field: 'reportingunit', title: '上报单位', span: 12, itemRender: {name: '$input'}},
 				{field: 'note', title: '详情', span: 12, itemRender: {name: '$input'}},
 				{field: 'picture', title: '图片', span: 12, itemRender: {name: '$input'}},
@@ -69,14 +74,14 @@ export default {
 		submitEvent: function (row) {
 			const formdata = new FormData();
 			const oper = Boolean(row[1]) ? 'edit' : 'insert';
-			let sql = this.crud.generateSql(oper, row[0], 'disaster.commDisaster');
+			let sql = this.crud.generateSql(oper, row[0], this.db);
 
 			formdata.append('commdisasterupdate', sql);
 			this.crud.postRequest('/api/disaster/Update', formdata, this, 'update already');
 		},
 		remove: function (row) {
 			const formdata = new FormData();
-			let sql = this.crud.generateSql('delete', row, 'disaster.commDisaster');
+			let sql = this.crud.generateSql('delete', row, this.db);
 			
 			formdata.append('commdisasterupdate', sql);
 			this.crud.postRequest('/api/disaster/Update', formdata, this, 'update already');

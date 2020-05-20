@@ -7,7 +7,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import crud from './assets/crud'
 import editable from './components/editable'
 
-import QuakeInfo from './components/QuakeInfo.vue'
+import DisasterInfo from './components/DisasterInfo.vue'
 import PeopleInfo from './components/PeopleInfo.vue'
 import HouseInfo from './components/HouseInfo.vue'
 import LifelineInfo from './components/LifelineInfo.vue'
@@ -35,10 +35,10 @@ Vue.use(editable)
 const routes = [
   { path: '/', redirect: '/index', show: false},
   { path: '/index', name: '首页', component: Index, show: false },
-  { path: '/quakeinfo', name: '地震灾情', component: QuakeInfo, show: true },
-  { path: '/peoplenfo', name: '人员伤亡及失踪', component: PeopleInfo, show: true },
-  { path: '/houseinfo', name: '房屋破坏', component: HouseInfo, show: true },
+  { path: '/disasterinfo', name: '灾情信息', component: DisasterInfo, show: true },
   { path: '/lifelineinfo', name: '生命线', component: LifelineInfo, show: true },
+  { path: '/peopleinfo', name: '人员伤亡及失踪', component: PeopleInfo, show: true },
+  { path: '/houseinfo', name: '房屋破坏', component: HouseInfo, show: true },
   { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo, show: true}, 
   { path: '/disasterprediction', name: '灾情预测', component: DisasterPrediction, show: true}, 
   { path: '/upload', name: '上传数据', component: Upload, show: false, icon: 'el-icon-upload' }];

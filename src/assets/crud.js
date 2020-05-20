@@ -73,8 +73,10 @@ export default {
 			let indexes = "(";
 			let values = "(";
 			for (const index in row) {
-				indexes += index + ", ";
-				values += "'" + row[index] + "', ";
+				if (index !== "_XID" && index !== "index") {
+					indexes += index + ", ";
+					values += "'" + row[index] + "', ";
+				}
 			}
 			indexes = indexes.substr(0, indexes.length-2) + ")";
 			values = values.substr(0, values.length-2) + ")";
