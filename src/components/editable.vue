@@ -5,9 +5,24 @@
 				<vxe-button @click="insertRow()">新增</vxe-button>
 			</template>
 		</vxe-toolbar>
-		<vxe-table stripe :data="mData">
-			<template v-for="(column, index) in mColumns">
-				<vxe-table-column :key="index" align="center" :field="column.field" :title="column.title"/>
+		<vxe-table stripe :data="mData" :columns="mColumns">
+			<template v-for="(column, index) in mColumns">	
+				<vxe-table-column v-if="!column.expand" :key="index" align="center" :field="column.field" :title="column.title"/>
+				<vxe-table-column v-else type="expand" width="80px">
+					<template v-slot:content="{row, rowIndex}" style="text-align: left;">
+						<el-row>
+							<template v-for="i in column.child">
+								<el-col :span="10" v-if="i.image">
+									<img src="../assets/logo.png" style="height: 200px"/>
+								</el-col>
+								<el-col :span="10" v-else>
+									<h5>{{ i.name }}</h5>
+									<p> {{ row[i.name]}} </p>
+								</el-col>
+							</template>
+						</el-row>
+					</template>
+				</vxe-table-column>
 			</template>
 			<vxe-table-column v-if="this.admin" align="center" title="操作" show-overflow>
 				<template slot-scope="row">

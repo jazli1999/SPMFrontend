@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import crud from './assets/crud'
+import editable from './components/editable'
 
 import QuakeInfo from './components/QuakeInfo.vue'
 import PeopleInfo from './components/PeopleInfo.vue'
@@ -29,6 +30,7 @@ Vue.config.productionTip = false
 Vue.use(Bus)
 Vue.use(Router)
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 })
+Vue.use(editable)
 
 const routes = [
   { path: '/', redirect: '/index', show: false},

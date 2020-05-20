@@ -16,14 +16,16 @@ export default {
 	data: function() {
 		return {
 			columns: [
-				{field: 'a', title: '一'},
-				{field: 'b', title: '二'}
+				{field: 'n', title: 'd', expand: true, child: [{name:'m', image:false}, {name:'r', image:true}]}, 
+				{field: 'a', title: '一', expand: false},
+				{field: 'b', title: '二', expand: false},
 			],
 			tableData: [
-				{a: 1, b: 2},
-				{a: 3, b: 4}
+				{n: 12, a: 1, b: 2, m: 23, r:24},
+				{n: 24, a: 3, b: 4, m: 27, r: 25}
 			],
 			formData: {
+				n: '',
 				a: '',
 				b: ''
 			},
