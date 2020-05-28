@@ -15,33 +15,37 @@ import SecondaryInfo from './components/SecondaryInfo.vue'
 import DisasterPrediction from './components/DisasterPrediction.vue'
 import Upload from './components/Upload.vue'
 import Index from './components/Index'
+import MyCharts from './components/MyCharts.vue'
 
 import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/index.css'
+import echarts from 'echarts'
 
 Vue.use(VXETable)
 
 // 给 vue 实例挂载全局窗口对象
 Vue.prototype.$XModal = VXETable.modal
 Vue.prototype.crud = crud
+Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
 Vue.use(Bus)
 Vue.use(Router)
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 })
-Vue.use(editable)
 
 const routes = [
-  { path: '/', redirect: '/index', show: false},
-  { path: '/index', name: '首页', component: Index, show: false },
-  { path: '/disasterinfo', name: '灾情信息', component: DisasterInfo, show: true },
-  { path: '/lifelineinfo', name: '生命线', component: LifelineInfo, show: true },
-  { path: '/peopleinfo', name: '人员伤亡及失踪', component: PeopleInfo, show: true },
-  { path: '/houseinfo', name: '房屋破坏', component: HouseInfo, show: true },
-  { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo, show: true}, 
-  { path: '/disasterprediction', name: '灾情预测', component: DisasterPrediction, show: true}, 
-  { path: '/upload', name: '上传数据', component: Upload, show: false, icon: 'el-icon-upload' }];
+  { path: '/', redirect: '/index' },
+  { path: '/index', name: '首页', component: Index },
+  { path: '/disasterinfo', name: '灾情信息', component: DisasterInfo },
+  { path: '/lifelineinfo', name: '生命线', component: LifelineInfo },
+  { path: '/peopleinfo', name: '人员伤亡及失踪', component: PeopleInfo },
+  { path: '/houseinfo', name: '房屋破坏', component: HouseInfo },
+  { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo }, 
+  { path: '/disasterprediction', name: '灾情预测', component: DisasterPrediction }, 
+  { path: '/upload', name: '上传数据', component: Upload },
+  { path: '/mycharts', name: '图表展示', component: MyCharts }];
+  
 
 const router = new Router({
     mode: 'history',
