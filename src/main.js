@@ -14,6 +14,7 @@ import LifelineInfo from './components/LifelineInfo.vue'
 import SecondaryInfo from './components/SecondaryInfo.vue'
 import DisasterPrediction from './components/DisasterPrediction.vue'
 import Upload from './components/Upload.vue'
+import Dashboard from './components/Dashboard.vue'
 import Index from './components/Index'
 
 import 'xe-utils'
@@ -33,22 +34,24 @@ Vue.use(ElementUI, { size: 'small', zIndex: 3000 })
 Vue.use(editable)
 
 const routes = [
-  { path: '/', redirect: '/index', show: false},
+  { path: '/', redirect: '/index', show: false },
   { path: '/index', name: '首页', component: Index, show: false },
   { path: '/disasterinfo', name: '灾情信息', component: DisasterInfo, show: true },
   { path: '/lifelineinfo', name: '生命线', component: LifelineInfo, show: true },
   { path: '/peopleinfo', name: '人员伤亡及失踪', component: PeopleInfo, show: true },
   { path: '/houseinfo', name: '房屋破坏', component: HouseInfo, show: true },
-  { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo, show: true}, 
-  { path: '/disasterprediction', name: '灾情预测', component: DisasterPrediction, show: true}, 
-  { path: '/upload', name: '上传数据', component: Upload, show: false, icon: 'el-icon-upload' }];
+  { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo, show: true },
+  { path: '/disasterprediction', name: '灾情预测', component: DisasterPrediction, show: true },
+  { path: '/upload', name: '上传数据', component: Upload, show: false, icon: 'el-icon-upload' },
+  { path: '/dashboard', name: 'dashboard', component: Dashboard, show: true }];
+
 
 const router = new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
 });
-  
+
 export default router
 
 new Vue({
