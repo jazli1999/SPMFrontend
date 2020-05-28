@@ -46,7 +46,7 @@ const routes = [
   { path: '/secondaryinfo', name: '次生灾害', component: SecondaryInfo }, 
   { path: '/disasterprediction', name: '灾情预测', component: DisasterPrediction }, 
   { path: '/upload', name: '上传数据', component: Upload },
-  { path: '/mycharts', name: '图表展示', component: MyCharts }];
+  { path: '/dashboard', name:'数据导出申请处理', component: Dashboard }];
 
 
 const router = new Router({

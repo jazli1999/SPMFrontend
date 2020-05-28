@@ -41,7 +41,10 @@ export default {
 		},
 		routes () {
 			return this.$router.options.routes;
-		}
+		},
+		admin: function() {
+      		return Boolean(Number(sessionStorage.getItem("admin")));
+    	}
 	},
 	created: function() {
 		if(sessionStorage.getItem("admin") === null) {
@@ -65,7 +68,7 @@ export default {
 			console.log(this.admin);
 			this.crud.admin = !this.crud.admin;
 			console.log(this.admin);
-		}
+		},
 	},
 }
 </script>

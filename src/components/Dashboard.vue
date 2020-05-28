@@ -2,25 +2,24 @@
   <div id="dashboard">
     <el-card class="box-card" style="padding: 15px; border-radius: 15px">
       <div slot="header" class="clearfix" style="text-align:center">
-        <h4>Dashboard</h4>
-        <el-button style="font-size:10pt" type="text" @click="refreshData">刷新数据</el-button>
+        <h4>数据导出申请处理</h4>
+        <el-button v-show="admin" style="font-size:10pt" type="text" @click="refreshData">刷新数据</el-button>
       </div>
       <div id="table-body">
-        <vxe-table stripe :data="tableData" :columns="columns">
-          <template v-for="(column, index) in columns">
-            <vxe-table-column
-              :key="index"
-              align="center"
-              :field="column.field"
-              :title="column.title"
-            />
-          </template>
-          <vxe-table-column v-if="this.admin" align="center" title="操作" show-overflow>
+        <vxe-table v-show="admin" stripe :data="tableData" >
+            <vxe-table-column align="center" field="id" title="编号" />
+            <vxe-table-column align="center" field="date" title="时间" />
+            <vxe-table-column align="center" field="disasterType" title="请求数据" />
+            <vxe-table-column align="center" field="status" title="处理状态" />
+            <vxe-table-column align="center" field="o_url" title="URL" />
+            <vxe-table-column align="center" field="requestunit" title="请求用户" />
+          <vxe-table-column align="center" title="发送数据" show-overflow>
             <template slot-scope="row">
-              <el-button type="primary" icon="el-icon-edit" circle @click="approveReq(row.row)"></el-button>
+              <el-button type="primary" icon="el-icon-position" circle @click="approveReq(row.row)"></el-button>
             </template>
           </vxe-table-column>
         </vxe-table>
+        <p v-show="!admin">请先登录管理员</p>
       </div>
     </el-card>
   </div>
@@ -29,39 +28,42 @@
 <script>
 import editable from "./editable.vue";
 export default {
-  name: "Dashboard",
-  components: {
-    editable
-  },
-  data: function() {
-    return {
-      columns: [
-        { field: "id", title: "请求编号", expand: false },
-        { field: "user", title: "请求用户", expand: false },
-        { field: "url", title: "请求URL", expand: false },
-        { field: "status", title: "处理状态", expand: false }
-      ],
-      tableData: [
-        { id: "1", user: "小苏", url: "/url/xiaoli/", status: 0 },
-        { id: "2", user: "小李", url: "/url/xiaosu/", status: 0 }
-      ]
-    };
-  },
-  computed: {
-    admin: function() {
-      return Boolean(Number(sessionStorage.getItem("admin")));
-    }
-  },
-  methods: {
-    refreshData: function() {
-      // this.crud.getRequest(this.url, this);
+    name: "Dashboard",
+    components: {
+        editable
     },
-    approveReq: function(row) {
-      const formdata = new FormData();
-      let sql = "UPDATE .....";
-      //......
-      row.status = 1;
+    data: function() {
+        return {
+            url: '/api/disaster/DisasterRequest',
+            db: 'disaster.disasterRequest',
+            tableData: [],
+            showData: false,
+        };
+    },
+    mounted: function() {
+        this.refreshData();
+    },
+    computed: {
+        admin: function() {
+            return Boolean(Number(sessionStorage.getItem("admin")));
+        }
+  },
+    methods: {
+        refreshData: function() {
+            this.crud.getRequest(this.url, this);
+        },
+        updateData: function(newData) {
+            this.tableData = newData.sort((a, b) => {
+                return a.status - b.status;
+            });  
+            this.showData = true;
+        }, 
+        approveReq: function(row) {
+            const formData = new FormData();
+            formData.append('disasterType', row.disasterType);
+            formData.append('URL', row.o_url);
+            this.crud.postRequest('/api/disaster/export', formData, this, 'success')
+        }
     }
-  }
 };
 </script>
