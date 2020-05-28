@@ -14,6 +14,7 @@ import LifelineInfo from './components/LifelineInfo.vue'
 import SecondaryInfo from './components/SecondaryInfo.vue'
 import DisasterPrediction from './components/DisasterPrediction.vue'
 import Upload from './components/Upload.vue'
+import Dashboard from './components/Dashboard.vue'
 import Index from './components/Index'
 import MyCharts from './components/MyCharts.vue'
 
@@ -35,6 +36,7 @@ Vue.use(Router)
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 })
 
 const routes = [
+
   { path: '/', redirect: '/index' },
   { path: '/index', name: '首页', component: Index },
   { path: '/disasterinfo', name: '灾情信息', component: DisasterInfo },
@@ -45,14 +47,14 @@ const routes = [
   { path: '/disasterprediction', name: '灾情预测', component: DisasterPrediction }, 
   { path: '/upload', name: '上传数据', component: Upload },
   { path: '/mycharts', name: '图表展示', component: MyCharts }];
-  
+
 
 const router = new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
 });
-  
+
 export default router
 
 new Vue({

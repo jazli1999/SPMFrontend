@@ -2,14 +2,9 @@
     <div id="container">
 		<div>
 			<el-menu :default-active="routes[1].path" router mode="horizontal"  @open="handleOpen">
-				<el-menu-item :index="routes[1].path" >{{ routes[1].name }}</el-menu-item>
-				<el-submenu index="2">
-					<template slot="title">灾情信息</template>
-  					<el-menu-item v-for="route in infoRoutes" :key="route.path" :index="route.path" >
-						  {{ route.name }}
-  					</el-menu-item>
-				</el-submenu>
-				<el-menu-item :index="routes[8].path" >{{ routes[8].name }}</el-menu-item>
+				<el-menu-item v-for="route in routes" :key="route.path" :index="route.path" >
+					  {{ route.name }}
+				</el-menu-item>
 				<login />
 			</el-menu>
 		</div>
