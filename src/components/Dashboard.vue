@@ -10,14 +10,18 @@
             <vxe-table-column align="center" field="id" title="编号" />
             <vxe-table-column align="center" field="date" title="时间" />
             <vxe-table-column align="center" field="disasterType" title="请求数据" />
-            <vxe-table-column align="center" field="status" title="处理状态" />
+            <vxe-table-column align="center" title="处理状态">
+              <template slot-scope="row">
+                {{ row.row.status === '1' ? '已处理' : '未处理' }}
+              </template>
+            </vxe-table-column>
             <vxe-table-column align="center" field="o_url" title="URL" />
             <vxe-table-column align="center" field="requestunit" title="请求用户" />
-          <vxe-table-column align="center" title="发送数据" show-overflow>
-            <template slot-scope="row">
-              <el-button type="primary" icon="el-icon-position" circle @click="approveReq(row.row)"></el-button>
-            </template>
-          </vxe-table-column>
+            <vxe-table-column align="center" title="发送数据" show-overflow>
+              <template slot-scope="row">
+                <el-button v-if="row.row.status === '0'" type="primary" icon="el-icon-position" circle @click="approveReq(row.row)"></el-button>
+              </template>
+            </vxe-table-column>
         </vxe-table>
         <p v-show="!admin">请先登录管理员</p>
       </div>
@@ -61,8 +65,13 @@ export default {
         approveReq: function(row) {
             const formData = new FormData();
             formData.append('disasterType', row.disasterType);
-            formData.append('URL', row.o_url);
-            this.crud.postRequest('/api/disaster/export', formData, this, 'success')
+            formData.append('url', row.o_url);
+            this.crud.postRequest('/api/disaster/Export', formData, this, 'success')
+        },
+        boolStatus: function(status) {
+          const temp = Boolean(Number(status));
+          console.log(temp);
+          return temp;
         }
     }
 };
