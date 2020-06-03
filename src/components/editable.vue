@@ -1,15 +1,21 @@
 <template>
   <div id="editable">
-    <vxe-toolbar v-show="this.admin">
-      <template v-slot:buttons>
-        <vxe-button @click="insertRow()">新增</vxe-button>
-      </template>
-    </vxe-toolbar>
-    <vxe-toolbar v-show="!this.admin">
-      <template v-slot:buttons>
-        <vxe-button @click="showExportReq=true">导出数据</vxe-button>
-      </template>
-    </vxe-toolbar>
+	  <el-row>
+		  <el-col :span="12">
+			<vxe-toolbar>
+			<template v-slot:buttons>
+				<vxe-button @click="showExportReq=true">导出数据</vxe-button>
+			</template>
+			</vxe-toolbar>
+		  </el-col>
+		  <el-col :span="12">
+			<vxe-toolbar>
+				<template v-slot:buttons v-if="this.admin">
+					<vxe-button  @click="insertRow()" style="float:right; margin-right: 70px;">新增</vxe-button>
+				</template>
+			</vxe-toolbar>
+		  </el-col>
+	  </el-row>
     <vxe-table stripe :data="tableData" :columns="columns">
       <template v-for="(column, index) in columns">
         <vxe-table-column
@@ -58,7 +64,13 @@
       ></vxe-form>
     </vxe-modal>
     <el-dialog title="导出数据" :visible.sync="showExportReq">
-      	<el-form :model="form" :span="24">
+      	<el-form :span="24">
+			<el-form-item label="编码ID">	
+		  		<el-col :span="21" >
+					<el-input v-model="exportID" ></el-input>
+				</el-col>
+			</el-form-item>
+
         	<el-form-item label="导出URL">	
 		  		<el-col :span="21" >
 					<el-input v-model="exportURL" placeholder="e.g. xxx.xx.xx.xx/disaster/some-url/" autocomplete="on" ></el-input>
@@ -74,7 +86,7 @@
       	</el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="showExportReq = false">取消</el-button>
-        <el-button type="primary" @click="showExportReq = false">确定</el-button>
+        <el-button type="primary" @click="sendRequest()">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -88,18 +100,21 @@ export default {
 		columns: Array,
 		formItems: Array,
 		formData: Object,
-		exportURL: String
+		code: String
 	},
 	data: function() {
 		return {
-		mUrl: this.url,
-		submitLoading: false,
-		mFormData: this.formData,
-		form: "",
-		selectRow: null,
-		showEdit: false,
-		showExportReq: false,
-		show: false
+			mUrl: this.url,
+			submitLoading: false,
+			mFormData: this.formData,
+			form: "",
+			selectRow: null,
+			showEdit: false,
+			showExportReq: false,
+			show: false,
+			exportURL: '',
+			user: '',
+			exportID: ''
 		};
 	},
 	computed: {
@@ -107,55 +122,69 @@ export default {
 		return Boolean(Number(sessionStorage.getItem("admin")));
 		}
 	},
-	mounted: function() {
-		// setTimeout(() => {
-		// 	console.log(this.tableData);
-		// }, 5000);
-	},
 	methods: {
 		initFormData: function() {
-		const newData = new Object();
-		for (const i in this.mFormData) {
-			newData[i] = "";
-		}
-		this.mFormData = newData;
+			const newData = new Object();
+			for (const i in this.mFormData) {
+				newData[i] = "";
+			}
+			this.mFormData = newData;
 		},
 		getFormData: function(row) {
-		const newData = new Object();
-		for (const i in row) {
-			newData[i] = row[i];
-		}
-		this.mFormData = newData;
+			const newData = new Object();
+			for (const i in row) {
+				newData[i] = row[i];
+			}
+			this.mFormData = newData;
 		},
 		insertRow: function() {
-		this.initFormData();
-		this.selectRow = null;
-		this.showEdit = true;
+			this.initFormData();
+			this.selectRow = null;
+			this.showEdit = true;
 		},
 		submitEvent: function() {
-		this.submitLoading = true;
-		this.submitLoading = false;
-		this.showEdit = false;
-		let _this = this;
+			this.submitLoading = true;
+			this.submitLoading = false;
+			this.showEdit = false;
+			let _this = this;
 
-		this.$emit("submit", [_this.mFormData, _this.selectRow]);
+			this.$emit("submit", [_this.mFormData, _this.selectRow]);
 		},
 		edit: function(row) {
-		this.getFormData(row);
-		this.selectRow = row;
-		this.showEdit = true;
+			this.getFormData(row);
+			this.selectRow = row;
+			this.showEdit = true;
 		},
 		remove: function(row) {
-		this.$XModal.confirm("您确定要删除该数据?").then(type => {
-			if (type === "confirm") {
-			this.$emit("remove", row);
-			}
-		});
+			this.$XModal.confirm("您确定要删除该数据?").then(type => {
+				if (type === "confirm") {
+				this.$emit("remove", row);
+				}
+			});
 		},
 		cellDBLClickEvent({ row }) {
-		this.editEvent(row);
+			this.editEvent(row);
 		},
-		exportReq() {
+		sendRequest() {			
+			let dateTime = new Date().toLocaleString().replace(/-/g, '/');
+			let [date, time] = dateTime.split(' ');
+			time = time.substring(2, time.length);
+
+			const args = {};
+			args.o_url = this.exportURL;
+			args.requestunit = this.user;
+			args.id = this.exportID;
+			args.date = date + ' ' + time;
+			args.disasterType = this.code;
+			args.status = 0;
+
+			let sql = this.crud.generateSql('insert', args, 'disaster.disasterrequest');
+
+			const formData = new FormData();
+			formData.append('commdisasterupdate', sql);
+			this.crud.postRequest('/api/disaster/Update', formData, this, 'update already', false);
+
+			this.showExportReq = false;
 		}
 	}
 };

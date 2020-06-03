@@ -1,5 +1,5 @@
 export default {
-    postRequest: function (url, formData, _this, successMsg) {
+    postRequest: function (url, formData, _this, successMsg, needRefresh=true) {
         const axios = require('axios');
         axios({
             method: 'post',
@@ -8,7 +8,9 @@ export default {
             data: formData})
         .then(function(response) {
             if (response.data === successMsg) {
-                _this.refreshData();
+                if (needRefresh) {
+                    _this.refreshData();
+                }
                 _this.$message({
                     message: '操作完成',
                     type: 'success'

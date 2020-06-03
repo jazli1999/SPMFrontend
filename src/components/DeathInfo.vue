@@ -5,7 +5,7 @@
 		        <h4>人员伤亡信息</h4>
 				<el-button style="font-size:10pt" type="text" @click="refreshData">刷新数据</el-button>
 			</div>
-			<editable v-show="showData" :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" 
+			<editable v-show="showData" :code="code" :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" 
 						@submit="submitEvent($event)" @remove="remove($event)"/>
 		</el-card>
 	</div>
