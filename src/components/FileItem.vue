@@ -5,14 +5,20 @@
             <label style="display: inline-block; width:50px; line-height: 35px; text-align: center;"> {{ index+1 }} </label>
             <el-divider direction="vertical"></el-divider>
             <el-form :inline="true" class="demo-form-inline" style="display:inline">
-                <el-form-item style="width: 250px; text-align: center">
+                <el-form-item style="width: 255px; text-align: center">
                     <el-upload action="self-define" class="upload-demo" :http-request="selectFile" :limit="1">
                         <el-button size="small" type="primary">选择文件</el-button>
                     </el-upload>
                 </el-form-item>
                 <el-divider direction="vertical"></el-divider>
                 <el-form-item style="width: 180px; text-align: center">
-                    <el-input v-model.number="code" style="width: 100px" placeholder="e.g. 336"></el-input>
+                    <el-input v-model.number="code" style="width: 100px" @change="update" placeholder="e.g. 336"></el-input>
+                </el-form-item>
+                <el-divider direction="vertical"></el-divider>
+                <el-form-item style="width: 250px; text-align: center">
+                    <el-upload action="self-define" class="upload-demo" :http-request="selectPic" :limit="1">
+                        <el-button size="small">选择图片</el-button>
+                    </el-upload>
                 </el-form-item>
                 <el-divider direction="vertical"></el-divider>
                 <el-form-item style="width: 80px; text-align: center">
@@ -38,37 +44,25 @@ export default {
     data: function () {
         return {
             file: this.myFile,
-            code: this.MSCode
-        }
-    },
-    watch: {
-        code: function() {
-            this.$emit('updateData', {index: this.index, fileValue: this.file, codeValue: this.code});
+            code: this.MSCode,
+            pic: this.mPic
         }
     },
     methods: {
         selectFile: function(item) {
             this.file = item.file;
+            this.update();
         },
-        uploadFile(item) {
-            var _this = this;
-            
-            const axios = require('axios');
-            let formdata = new FormData();
-            formdata.append('myFile', item.myFile);
-            formdata.append('MSCode', this.code);
-
-            axios({
-                method: 'post',
-                url: '/api/disaster/upload2',
-                headers: {'content-type': 'multipart/form-data'},
-                data: formdata
-            }).then(function(response) {
-                console.log(response);
-            });
+        selectPic: function(item) {
+            this.pic = item.file;
+            this.update();
         },
         deleteItem: function () {
             this.$emit('deleteFileItem', this.index);
+        },
+        update: function() {
+            this.$emit('updateData', {index: this.index, fileValue: this.file, picValue: this.pic, codeValue: this.code});
+            console.log('a');
         }
     }
 }

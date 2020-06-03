@@ -10,6 +10,8 @@
                     <el-divider direction="vertical"></el-divider>
                     <div style="display: inline-block; width: 190px; text-align: center"> 编码 </div>
                     <el-divider direction="vertical"></el-divider>
+                    <div style="display: inline-block; width: 260px; text-align: center"> 图片 </div>
+                    <el-divider direction="vertical"></el-divider>
                     <div style="display: inline-block; width: 90px; text-align: center"> 删除 </div>
                     <el-divider direction="vertical"></el-divider>
                 </el-row>
@@ -39,13 +41,14 @@ export default {
         return {
             files: [{
                 myFile: {},
-                MSCode: ''
+                MSCode: '',
+                mPic: {}
             }]
         };
     },
     methods: {
         addItem: function () {
-            this.files.push({myFile: {}, MSCode: ''});
+            this.files.push({myFile: {}, MSCode: '', mPic: {}});
             console.log(this.files);          
         },
         deleteItem: function(index) {
@@ -56,11 +59,11 @@ export default {
             for(const file of this.files) {
                 const axios = require('axios');
                 const formdata = new FormData();
-                console.log(file.myFile);
                 formdata.append('myFile', file.myFile);
                 formdata.append('MSCode', file.MSCode);
+                formdata.append('pic', file.mPic);
 
-                 axios({
+                axios({
                     method: 'post',
                     url: '/api/disaster/upload2',
                     headers: {'content-type': 'multipart/form-data'},
@@ -82,13 +85,16 @@ export default {
             
             this.files = [{
                 myFile: {},
-                MSCode: ''
+                MSCode: '',
+                mPic: {}
             }];
         },
         updateData: function(val) {
             let index = val.index;
             this.files[index].myFile = val.fileValue;
             this.files[index].MSCode = val.codeValue;
+            this.files[index].mPic = val.picValue;
+            console.log(val);
         }
     }
 }
