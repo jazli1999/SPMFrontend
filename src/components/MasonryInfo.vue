@@ -22,6 +22,7 @@ export default {
 		return {
 			url: '/api/disaster/MasonryStructure',
 			db: 'disaster.masonryStructure',
+			code: '223',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,

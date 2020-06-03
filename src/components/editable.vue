@@ -17,8 +17,7 @@
           :key="index"
           align="center"
           :field="column.field"
-          :title="column.title"
-        />
+          :title="column.title" />
         <vxe-table-column v-else :key="index" type="expand" width="25px">
           <template v-slot:content="{row, rowIndex}" style="text-align: left;">
             <el-row>
@@ -59,11 +58,20 @@
       ></vxe-form>
     </vxe-modal>
     <el-dialog title="导出数据" :visible.sync="showExportReq">
-      <el-form :model="form">
-        <el-form-item>
-			<el-input v-model="exportURL" placeholder="请输入url" autocomplete="off"></el-input>
-		</el-form-item>
-      </el-form>
+      	<el-form :model="form" :span="24">
+        	<el-form-item label="导出URL">	
+		  		<el-col :span="21" >
+					<el-input v-model="exportURL" placeholder="e.g. xxx.xx.xx.xx/disaster/some-url/" autocomplete="on" ></el-input>
+				</el-col>
+			</el-form-item>
+			
+			<el-form-item label="请求用户">
+				<el-col :span="21" >
+					<el-input v-model="user" placeholder="e.g. 云南省人民政府办公厅" autocomplete="on" ></el-input>
+				</el-col>
+			</el-form-item>
+
+      	</el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="showExportReq = false">取消</el-button>
         <el-button type="primary" @click="showExportReq = false">确定</el-button>

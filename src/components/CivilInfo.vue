@@ -22,6 +22,7 @@ export default {
 		return {
 			url: '/api/disaster/CivilStructure',
 			db: 'disaster.civilStructure',
+			code: '221',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,

@@ -2,7 +2,7 @@
     <div id="lifelineinfo">
 		<el-card class="box-card" style="padding: 15px; border-radius: 15px">
 		    <div slot="header" class="clearfix" style="text-align: center">
-		        <h3>通信灾情</h3>
+		        <h3>崩塌灾情</h3>
 				<el-button style="font-size:10pt" type="text" @click="refreshData">刷新数据</el-button>
 			</div>
 			<editable v-show="showData" :columns="columns" :formItems="formItems" :formData="formData" :tableData="tableData" 
@@ -22,6 +22,7 @@ export default {
 		return {
 			url: '/api/disaster/CollapseRecord',
 			db: 'disaster.collapseRecord',
+			code: '441',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,

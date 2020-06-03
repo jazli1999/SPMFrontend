@@ -22,6 +22,7 @@ export default {
 		return {
 			url: '/api/disaster/TrafficDisaster',
 			db: 'disaster.trafficDisaster',
+			code: '331',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,

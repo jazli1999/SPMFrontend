@@ -22,6 +22,7 @@ export default {
 		return {
 			url: '/api/disaster/MissingStatistics',
 			db: 'disaster.missingStatistics',
+			code: '113',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,

@@ -22,6 +22,7 @@ export default {
 		return {
 			url: '/api/disaster/DeathStatistics',
 			db: 'disaster.deathStatistics',
+			code: '111',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,

@@ -22,6 +22,7 @@ export default {
 		return {
 			url: '/api/disaster/DisasterPrediction',
 			db: 'disaster.disasterPrediction',
+			code: '552',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,

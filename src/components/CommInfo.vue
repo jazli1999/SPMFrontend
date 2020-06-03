@@ -22,6 +22,7 @@ export default {
 		return {
 			url: '/api/disaster/CommonDisaster',
 			db: 'disaster.commDisaster',
+			code: '336',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,

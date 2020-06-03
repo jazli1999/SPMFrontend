@@ -22,6 +22,7 @@ export default {
 		return {
 			url: '/api/disaster/DisasterInfo',
 			db: 'disaster.disasterInfo',
+			code: '551',
 			submitLoading: false,
 			showEdit: false,
 			selectRow: null,
